@@ -1,0 +1,19 @@
+cabal-version:      2.4
+name:               servant-prune
+version:            0.1.0.0
+synopsis:           Filter servant APIs
+description:        Filter servant APIs.
+license-file:       LICENSE
+build-type:         Simple
+
+library
+    hs-source-dirs:   src
+    ghc-options:      -Wall -Wextra -Werror
+    exposed-modules:  Servant.API.TypeLevel.Prune
+    default-language: Haskell2010
+    default-extensions: DataKinds
+                      , PolyKinds
+                      , TypeFamilies
+                      , TypeOperators
+    build-depends:    base
+                    , servant
