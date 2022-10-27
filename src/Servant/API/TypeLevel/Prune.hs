@@ -5,6 +5,7 @@ module Servant.API.TypeLevel.Prune
   )
   where
 
+import           Data.Kind (Type)
 import           Servant.API
 import           Servant.API.TypeLevel
 
@@ -23,7 +24,7 @@ type instance IsElem' sa (QueryParam' _ _ _ :> sb) = IsElem sa sb
 -- to 'IsElem' in that the @mask@ doesn't have to specify non-path parameters.
 -- Additionally, 'Wild' can be used as a wildcard for the return type of a
 -- request.
-type family Prune (mask :: *) (api :: *) :: * where
+type family Prune (mask :: Type) (api :: Type) :: Type where
   -- The instances mimic 'IsElem' and the 'IsElem'' instances above
   Prune sa (sb :<|> sc) = Prune sa sb ?<|> Prune sa sc
   Prune (e :> sa) (e :> sb) = e ?> Prune sa sb
@@ -44,11 +45,11 @@ type family Prune (mask :: *) (api :: *) :: * where
   Prune (sa :<|> sb) sc = Prune sa sc ?<|> Prune sb sc
   Prune sa sb = EmptyAPI
 
-type family (?>) (path :: k) (api :: *) :: * where
+type family (?>) (path :: k) (api :: Type) :: Type where
   path ?> EmptyAPI = EmptyAPI
   path ?> api = path :> api
 
-type family (?<|>) (api :: *) (api' :: *) :: * where
+type family (?<|>) (api :: Type) (api' :: Type) :: Type where
   EmptyAPI ?<|> sa = sa
   sa ?<|> EmptyAPI = sa
   sa ?<|> sb = sa :<|> sb
