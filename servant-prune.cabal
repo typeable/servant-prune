@@ -18,5 +18,5 @@ library
     TypeOperators
 
   build-depends:
-    , base
-    , servant
+    , base     >=4.9
+    , servant  >=0.18.2
